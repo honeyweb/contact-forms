@@ -1,0 +1,52 @@
+<div class="container-fluid" >
+	<div class="row">
+		<div class="col-md-4"></div>
+		<div class="col-md-4">
+			<div class="row">
+				<div class="col-md-12">
+					<h1 class="text-center">Matrimony Form</h1>
+				</div>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="col-md-12">
+					<a routerLink="/home" style="cursor: pointer;">Home</a> >> <a>{{form_name}}</a>
+				</div>
+			</div>
+			<hr>
+			<form>
+				<div class="row">
+					<div class="col-md-6">
+						<label class="text-right" for="serial_no">Serial Number</label>
+					</div>
+					<div class="col-md-6">
+						<input type="number" class="form-control" placeholder="Serial Number" [(ngModel)]="serial_no" name="serial_no" id="serial_no"/>
+					</div>
+				</div><br>
+				<div class="row">
+					<div class="col-md-6">
+						<label class="text-right" for="pin">PIN</label>
+					</div>
+					<div class="col-md-6">
+						<input type="number" class="form-control" placeholder="4 digit PIN" [(ngModel)]="pin" name="pin" id="pin"/>
+					</div>
+				</div><br>
+				<div class="row">
+					<div class="col-md-6"></div>
+					<div class="col-md-6">
+						<button class="btn btn-primary" (click)="openForm()">Open Form</button>
+					</div>
+				</div>
+			</form>
+			<hr>
+			<form>
+				<div class="row">
+					<div class="col-md-6"></div>
+					<div class="col-md-6">
+						<button type="submit" class="btn btn-primary" (click)="newForm()">New Form</button>
+					</div>
+				</div><br>
+			</form>
+		</div>
+	</div><br>
+</div>
