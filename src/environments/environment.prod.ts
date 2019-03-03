@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseUrl : 'http://localhost:8003/api/',
+  baseUrl : 'https://honeyweb.org/api/',
 };
