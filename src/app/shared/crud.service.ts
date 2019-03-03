@@ -22,6 +22,7 @@ export class CRUDService {
   getObjs (): Observable<{}[]> {
     // this.appStore._token = this.getCookie('_token');
     // console.log(document.Set-Cookie);
+    this.http.request
     return this.http.get<{}[]>(this.url).pipe(
       tap(res => this.log('fetched res')),
       catchError(this.handleError('getObjs', []))
@@ -68,6 +69,20 @@ export class CRUDService {
       tap(_ => this.log('found heroes matching "${term}"')),
       catchError(this.handleError<{}[]>('searchObjs', []))
     );
+  }
+
+  uploadFile(file: File) {
+    const _formData = new FormData();
+    _formData.append('file', file, file.name);   
+    return this.http.post<{}>(this.url, _formData);
+  }
+
+  uploadFiles(files: File[]) {
+    const _formData = new FormData();
+    for (var i = 0; i < files.length; i++) {
+      _formData.append('files[]', files[i]);   
+    }
+    return this.http.post<{}>(this.url, _formData);
   }
 
   /**

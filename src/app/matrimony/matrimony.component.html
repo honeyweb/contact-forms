@@ -1,8 +1,4 @@
-<form id="form" class="form-horizontal" method="POST" action="/application_form?form_name=matrimony" enctype="multipart/form-data" autocomplete="off">
-	<input type="hidden" name="_token" value="8PUfJvLuvufkuc9zFnQ8I7Gu1oBdvtdStdHHLqRD">
-	<input type="hidden" name="form_name" value="matrimony" />
-	<input type="hidden" name="serial_no" value="2" />
-	<input type="hidden" name="pin" value="" />
+<form autocomplete="off">
 <div class="container-fluid" >
 	<div class="row">
 		<div class="col-md-4"></div>
@@ -15,20 +11,28 @@
 			<hr>
 			<div class="row">
 				<div class="col-md-12">
-					<a href="/">Home</a> >> <a href="/cru_buttons?form_name=matrimony">matrimony</a> >> <a>form serial_no:2</a>
+					<a routerLink="/home">Home</a> >> <a (click)="nav('matrimony')">matrimony</a> >> <a>form serial_no:{{serial_no}}</a>
 				</div>
 			</div>
 			<hr>
-
-					    <div class="row">
+			<div class="row">
+				<div class="col-md-12" *ngFor="let image of images">
+					<img src="{{image}}" alt="" style="width: 100%"/>
+				</div>
 				<div class="col-md-12">
-					<input type="file" name="images[]" id="images" multiple style="visibility: hidden">
+					<input type="file" name="images[]" id="images" multiple (change)=imageFiles($event)>
 					<label for="images"><img src="https://via.placeholder.com/480x100?text=Add+Photos" alt="Add Photo" style="width: 100%"></label>
 				</div>
-			</div>
-						<div class="row">
+			</div><hr>
+			<div class="row">
 				<div class="col-md-12">
-					<input type="file" name="attachments[]" id="attachments" multiple style="visibility: hidden">
+					<h3>Attachments</h3>
+				</div>
+				<div class="col-md-12" *ngFor="let item of attachments; let i = index;">
+					<a href="{{item['path']}}">{{item['name']}}</a>
+				</div>
+				<div class="col-md-12">
+					<input type="file" name="attachments[]" id="attachments" multiple (change)=attachFiles($event)>
 					<label for="attachments"><img src="https://via.placeholder.com/480x100?text=Add+Attachements" alt="Add Attachements" 	style="width: 100%"></label>
 				</div>
 			</div><br>
@@ -37,7 +41,7 @@
 					<label class="text-right">Serial Number:</label>
 				</div>
 				<div class="col-md-6">
-					<p class="well well-sm">2</p>
+					<p class="well well-sm">{{serial_no}}</p>
 				</div>
 			</div>
 			<div class="row">
@@ -45,7 +49,8 @@
 					<label class="text-right" for="name">Name</label>
 				</div>
 				<div class="col-md-6">
-					<input type="text" class="form-control" placeholder="Applicant Name" name="name" id="name"/>
+					<input type="text" class="form-control" placeholder="Applicant Name" [(ngModel)]="obj['name']" name="name" id="name"/>
+					<p class="e" *ngIf="e['name']">* {{e['name'][0]}}</p>
 				</div>
 			</div><br>
 			<div class="row">
@@ -53,9 +58,9 @@
 					<label class="text-right" for="sex">Sex</label>
 				</div>
 				<div class="col-md-6">
-					<Select class="form-control" name="sex" id="sex">
+					<select class="form-control" [(ngModel)]="obj['sex']" name="sex" id="sex">
 						<option>Male</option><option>Female</option>
-					</Select>
+					</select>
 				</div>
 			</div><br>
 			<div class="row">
@@ -63,7 +68,8 @@
 					<label class="text-right" for="date_time_of_birth">Date and Time Of Birth</label>
 				</div>
 				<div class="col-md-6">
-					<input type="datetime-local" class="form-control" name="date_time_of_birth" id="date_time_of_birth"/>
+					<input type="datetime-local" class="form-control" [(ngModel)]="obj['date_time_of_birth']" name="date_time_of_birth" id="date_time_of_birth"/>
+					<p class="e" *ngIf="e['date_time_of_birth']">* {{e['date_time_of_birth'][0]}}</p>
 				</div>
 			</div><br>
 			<div class="row">
@@ -71,7 +77,8 @@
 					<label class="text-right" for="place_of_birth">Place Of Birth</label>
 				</div>
 				<div class="col-md-6">
-					<input type="text" class="form-control" placeholder="Bengaluru / India" name="place_of_birth" id="place_of_birth"/>
+					<input type="text" class="form-control" placeholder="Bengaluru / India" [(ngModel)]="obj['place_of_birth']" name="place_of_birth" id="place_of_birth"/>
+					<p class="e" *ngIf="e['place_of_birth']">* {{e['place_of_birth'][0]}}</p>
 				</div>
 			</div><br>
 			<div class="row">
@@ -79,7 +86,8 @@
 					<label class="text-right" for="religion">Religion</label>
 				</div>
 				<div class="col-md-6">
-					<input type="text" class="form-control" placeholder="Religion" name="religion" id="religion"/>
+					<input type="text" class="form-control" placeholder="Religion" [(ngModel)]="obj['religion']" name="religion" id="religion"/>
+					<p class="e" *ngIf="e['religion']">* {{e['religion'][0]}}</p>
 				</div>
 			</div><br>
 			<div class="row">
@@ -87,7 +95,8 @@
 					<label class="text-right" for="caste">Caste</label>
 				</div>
 				<div class="col-md-6">
-					<input type="text" class="form-control" placeholder="Caste" name="caste" id="caste"/>
+					<input type="text" class="form-control" placeholder="Caste" [(ngModel)]="obj['caste']" name="caste" id="caste"/>
+					<p class="e" *ngIf="e['caste']">* {{e['caste'][0]}}</p>
 				</div>
 			</div><br>
 			<div class="row">
@@ -95,7 +104,8 @@
 					<label class="text-right" for="gothram">Gothram</label>
 				</div>
 				<div class="col-md-6">
-					<input type="text" class="form-control" placeholder="Gothram" name="gothram" id="gothram"/>
+					<input type="text" class="form-control" placeholder="Gothram" [(ngModel)]="obj['gothram']" name="gothram" id="gothram"/>
+					<p class="e" *ngIf="e['gothram']">* {{e['gothram'][0]}}</p>
 				</div>
 			</div><br>
 			<div class="row">
@@ -103,7 +113,8 @@
 					<label class="text-right" for="education">Education</label>
 				</div>
 				<div class="col-md-6">
-					<input type="text" class="form-control" placeholder="Education" name="education" id="education"/>
+					<input type="text" class="form-control" placeholder="Education" [(ngModel)]="obj['education']" name="education" id="education"/>
+					<p class="e" *ngIf="e['education']">* {{e['education'][0]}}</p>
 				</div>
 			</div><br>
 			<div class="row">
@@ -111,7 +122,8 @@
 					<label class="text-right" for="profession">Profession</label>
 				</div>
 				<div class="col-md-6">
-					<input type="text" class="form-control" placeholder="Profession" name="profession" id="profession"/>
+					<input type="text" class="form-control" placeholder="Profession" [(ngModel)]="obj['profession']" name="profession" id="profession"/>
+					<p class="e" *ngIf="e['profession']">* {{e['profession'][0]}}</p>
 				</div>
 			</div><br>
 			<div class="row">
@@ -119,7 +131,8 @@
 					<label class="text-right" for="income">Income</label>
 				</div>
 				<div class="col-md-6">
-					<input type="text" class="form-control" placeholder="Income" name="income" id="income"/>
+					<input type="text" class="form-control" placeholder="Income" [(ngModel)]="obj['income']" name="income" id="income"/>
+					<p class="e" *ngIf="e['income']">* {{e['income'][0]}}</p>
 				</div>
 			</div><br>
 			<div class="row">
@@ -127,7 +140,8 @@
 					<label class="text-right" for="property">Property</label>
 				</div>
 				<div class="col-md-6">
-					<input type="text" class="form-control" placeholder="Property" name="property" id="property"/>
+					<input type="text" class="form-control" placeholder="Property" [(ngModel)]="obj['property']" name="property" id="property"/>
+					<p class="e" *ngIf="e['property']">* {{e['property'][0]}}</p>
 				</div>
 			</div><br>
 			<div class="row">
@@ -135,7 +149,8 @@
 					<label class="text-right" for="likes_and_dislikes">Likes and Dislikes</label>
 				</div>
 				<div class="col-md-6">
-					<textarea rows="3" class="form-control" placeholder="Likes and Dislikes" name="likes_and_dislikes" id="likes_and_dislikes"></textarea>
+					<textarea rows="3" class="form-control" placeholder="Likes and Dislikes" [(ngModel)]="obj['likes_and_dislikes']" name="likes_and_dislikes" id="likes_and_dislikes"></textarea>
+					<p class="e" *ngIf="e['likes_and_dislikes']">* {{e['likes_and_dislikes'][0]}}</p>
 				</div>
 			</div><br>
 			<div class="row">
@@ -143,7 +158,8 @@
 					<label class="text-right" for="residential_address">Residential Address</label>
 				</div>
 				<div class="col-md-6">
-					<textarea rows="3" class="form-control" placeholder="Residential Address" name="residential_address" id="residential_address"></textarea>
+					<textarea rows="3" class="form-control" placeholder="Residential Address" [(ngModel)]="obj['residential_address']" name="residential_address" id="residential_address"></textarea>
+					<p class="e" *ngIf="e['residential_address']">* {{e['residential_address'][0]}}</p>
 				</div>
 			</div><br>
 			<div class="row">
@@ -151,7 +167,8 @@
 					<label class="text-right" for="permanent_address">Permanent Address</label>
 				</div>
 				<div class="col-md-6">
-					<textarea rows="3" class="form-control" placeholder="Permanent Address" name="permanent_address" id="permanent_address"></textarea>
+					<textarea rows="3" class="form-control" placeholder="Permanent Address" [(ngModel)]="obj['permanent_address']" name="permanent_address" id="permanent_address"></textarea>
+					<p class="e" *ngIf="e['permanent_address']">* {{e['permanent_address'][0]}}</p>
 				</div>
 			</div><br>
 			<div class="row">
@@ -159,7 +176,8 @@
 					<label class="text-right" for="contact_number">Contact Number</label>
 				</div>
 				<div class="col-md-6">
-					<input type="text" class="form-control" placeholder="Phone Number / email-id etc" name="contact_number" id="contact_number"/>
+					<input type="text" class="form-control" placeholder="Phone Number / email-id etc" [(ngModel)]="obj['contact_number']" name="contact_number" id="contact_number"/>
+					<p class="e" *ngIf="e['contact_number']">* {{e['contact_number'][0]}}</p>
 				</div>
 			</div><br>
 			<div class="row">
@@ -167,13 +185,14 @@
 					<label class="text-right" for="spin">Secret PIN</label>
 				</div>
 				<div class="col-md-6">
-					<input type="number" class="form-control" placeholder="4 digit Secret PIN" name="spin" id="spin"/>
+					<input type="text" class="form-control" placeholder="4 digit Secret PIN" [(ngModel)]="obj['spin']" name="spin" id="spin"/>
+					<p class="e" *ngIf="e['spin']">* {{e['spin'][0]}}</p>
 				</div>
 			</div><br>
 			<div class="row">
 				<div class="col-md-6"></div>
 				<div class="col-md-6">
-					<input id="draft" type="submit" class="btn btn-primary" name="submit" value="Save Draft">
+					<a class="btn btn-primary" (click)="saveDraft()">Save Draft</a>
 					<input type="submit" class="btn btn-primary" name="submit" value="Final Submit">
 				</div>
 			</div>
@@ -187,22 +206,3 @@
 	</div><br>
 </div>
 </form>
-<!-- 
-<script>
-document.getElementById("images").onchange = function() {
-	if(document.getElementById("spin").value!==""){
-		document.getElementById("draft").click();
-	}else{
-		alert("Please Enter Secret PIN");
-	}
-};
-document.getElementById("attachments").onchange = function() {
-    if(document.getElementById("spin").value!==""){
-		document.getElementById("draft").click();
-	}else{
-		alert("Please Enter Secret PIN");
-	}
-};
-</script>
-</body>
-</html> -->

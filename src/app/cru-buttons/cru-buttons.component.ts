@@ -12,7 +12,7 @@ export class CruButtonsComponent implements OnInit {
 
 	form_name:string;
 	serial_no:number;
-	pin:number;
+	pin = "";
 
   constructor(private http:CRUDService, private router: Router, private route: ActivatedRoute) { }
 
@@ -22,22 +22,19 @@ export class CruButtonsComponent implements OnInit {
     });
   }
 
-  openForm(){
-  // 	const navigationExtras: NavigationExtras = {
-		// 	queryParams: {'form_name': this.form_name},
-		// };
-		// console.log(navigationExtras);
-		// this.router.navigate(['/cru-buttons'], navigationExtras);
-  }
-
   newForm(){
     this.http.url = env.baseUrl + '5?table=' + this.form_name;
     this.http.addObj({}).subscribe((res) => {
-      console.log(res);
+      this.serial_no = res['id'];
+      this.nav();
     });
-  	// this.router.navigate(['/'+this.form_name])
   }
 
-
+  nav(){
+    const navigationExtras: NavigationExtras = {
+      queryParams: {'serial_no': this.serial_no, 'pin': this.pin},
+    };
+    this.router.navigate(['/'+this.form_name], navigationExtras);
+  }
 
 }

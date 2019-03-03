@@ -14,10 +14,9 @@ export class HomeComponent implements OnInit {
   }
 
   nav(form_name){
-	  	const navigationExtras: NavigationExtras = {
+	  const navigationExtras: NavigationExtras = {
 			queryParams: {'form_name': form_name},
 		};
-		console.log(navigationExtras);
 		this.router.navigate(['/cru-buttons'], navigationExtras);
   }
 

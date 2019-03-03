@@ -1,0 +1,9 @@
+a{
+	cursor: pointer;
+}
+input[type=file]{
+	visibility: hidden;
+}
+.e{
+	color:red;
+}
