@@ -52,6 +52,7 @@ export class MatrimonyComponent implements OnInit {
     this.obj['attachments'] = JSON.stringify(this.attachments);
     this.obj['_method'] = 'put';
     console.log(this.obj);
+    
     this.http.url = env.baseUrl + '7/' + this.serial_no + '?table=matrimony';
     this.http.updateObj(this.obj).subscribe((data) => {
       console.log(data);
