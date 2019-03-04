@@ -22,7 +22,7 @@ export class CruButtonsComponent implements OnInit {
         this.form_name= params['form_name'];
         this.serial_no= params['serial_no'];
         this.pin= params['pin'];
-        this.err= params['err'];
+        this.err= params['err']; 
     });
   }
 
