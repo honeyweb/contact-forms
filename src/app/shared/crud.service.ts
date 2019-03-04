@@ -19,41 +19,41 @@ export class CRUDService {
 
   constructor(private http:HttpClient) { }
 
-  getObjs (): Observable<any[]> {
+  getObjs (): Observable<{}[]> {
     // this.appStore._token = this.getCookie('_token');
     // console.log(document.Set-Cookie);
     this.http.request
-    return this.http.get<any[]>(this.url).pipe(
+    return this.http.get<{}[]>(this.url).pipe(
       tap(res => this.log('fetched res')),
       catchError(this.handleError('getObjs', []))
     );
   }
 
-  getObj (): Observable<any> {
-    return this.http.get<any>(this.url).pipe(
+  getObj (): Observable<{}> {
+    return this.http.get<{}>(this.url).pipe(
       tap(res => this.log('fetched res id=${id}')),
-      catchError(this.handleError<any>('res id=${id}'))
+      catchError(this.handleError<{}>('res id=${id}'))
     );
   }
 
-  addObj (obj:any): Observable<any> {
-    return this.http.post<any>(this.url, JSON.stringify(obj)).pipe(
+  addObj (obj:any): Observable<{}> {
+    return this.http.post<{}>(this.url, obj, this.httpOptions).pipe(
       tap((res) => this.log('added new w/ id=${res.id}')),
-      catchError(this.handleError<any>('addObj'))
+      catchError(this.handleError<{}>('addObj'))
     );
   }
 
-  updateObj (obj:any): Observable<any> {
-    return this.http.put(this.url, JSON.stringify(obj)).pipe(
+  updateObj (obj:any): Observable<{}> {
+    return this.http.post(this.url, obj).pipe(
       tap(_ => this.log('updated hero id=${id}')),
-      catchError(this.handleError<any>('updateObj'))
+      catchError(this.handleError<{}>('updateObj'))
     );
   }
 
-  deleteObj (): Observable<any> {
-    return this.http.delete<any>(this.url).pipe(
+  deleteObj (): Observable<{}> {
+    return this.http.post<{}>(this.url, "").pipe(
       tap(_ => this.log('deleted hero id=${id}')),
-      catchError(this.handleError<any>('deleteObj'))
+      catchError(this.handleError<{}>('deleteObj'))
     );
   }
 
@@ -64,17 +64,17 @@ export class CRUDService {
     );
   }
 
-  searchObjs(url: string): Observable<any[]> {
-    return this.http.get<any[]>(url).pipe(
+  searchObjs(url: string): Observable<{}[]> {
+    return this.http.get<{}[]>(url).pipe(
       tap(_ => this.log('found heroes matching "${term}"')),
-      catchError(this.handleError<any[]>('searchObjs', []))
+      catchError(this.handleError<{}[]>('searchObjs', []))
     );
   }
 
   uploadFile(file: File) {
     const _formData = new FormData();
     _formData.append('file', file, file.name);   
-    return this.http.post<any>(this.url, _formData);
+    return this.http.post<{}>(this.url, _formData);
   }
 
   uploadFiles(files: File[]) {
@@ -82,7 +82,7 @@ export class CRUDService {
     for (var i = 0; i < files.length; i++) {
       _formData.append('files[]', files[i]);   
     }
-    return this.http.post<any>(this.url, _formData);
+    return this.http.post<{}>(this.url, _formData);
   }
 
   /**

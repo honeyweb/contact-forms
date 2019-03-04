@@ -24,7 +24,7 @@ export class CruButtonsComponent implements OnInit {
 
   newForm(){
     this.http.url = env.baseUrl + '5?table=' + this.form_name;
-    this.http.addObj({}).subscribe((res) => {
+    this.http.addObj("k=v&k2=v2").subscribe((res) => {
       this.serial_no = res['id'];
       this.nav();
     });
