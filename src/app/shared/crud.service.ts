@@ -37,7 +37,7 @@ export class CRUDService {
   }
 
   addObj (obj:any): Observable<{}> {
-    return this.http.post<{}>(this.url, obj, this.httpOptions).pipe(
+    return this.http.post<{}>(this.url, obj).pipe(
       tap((res) => this.log('added new w/ id=${res.id}')),
       catchError(this.handleError<{}>('addObj'))
     );
