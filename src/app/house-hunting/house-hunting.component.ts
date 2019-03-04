@@ -28,7 +28,7 @@ export class HouseHuntingComponent implements OnInit {
   }
 
   openForm(){
-    this.http.url = env.baseUrl + '6' + '?table=house_hunting&filter=where,id,=,' + this.serial_no + '|where,spin,=,' + this.pin;
+    this.http.url = env.baseUrl + '6?table=house_hunting&filter=where,id,=,' + this.serial_no + '|where,spin,=,' + this.pin;
     this.http.getObj().subscribe((res) => {
       this.obj = res[0];
       if(this.obj['images']){

@@ -28,7 +28,7 @@ export class MatrimonyComponent implements OnInit {
   }
 
   openForm(){
-    this.http.url = env.baseUrl + '6' + '?table=matrimony&filter=where,id,=,' + this.serial_no + '|where,spin,=,' + this.pin;
+    this.http.url = env.baseUrl + '6?table=matrimony&filter=where,id,=,' + this.serial_no + '|where,spin,=,' + this.pin;
     this.http.getObj().subscribe((res) => {
       console.log(res)
       this.obj = res[0];
