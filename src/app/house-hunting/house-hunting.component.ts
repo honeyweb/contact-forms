@@ -28,14 +28,14 @@ export class HouseHuntingComponent implements OnInit {
   }
 
   openForm(){
-    this.http.url = env.baseUrl + '6/'+ this.serial_no +'?table=house_hunting';
+    this.http.url = env.baseUrl + '6/' + '?table=house_hunting&filter=where,id,=,' + this.serial_no + '|where,spin,=,' + this.pin;
     this.http.getObj().subscribe((res) => {
-      this.obj = res;
-      if(res['images']){
-        this.images = res['images'].split(', ');
+      this.obj = res[0];
+      if(this.obj['images']){
+        this.images = this.obj['images'].split(', ');
       }
-      if(res['attachments']){
-        this.attachments = JSON.parse(res['attachments']);
+      if(this.obj['attachments']){
+        this.attachments = JSON.parse(this.obj['attachments']);
       }
     });
   }
