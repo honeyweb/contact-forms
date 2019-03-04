@@ -49,6 +49,8 @@ export class JobListingComponent implements OnInit {
 
   saveDraft(){
     this.obj['attachments'] = JSON.stringify(this.obj['attachments']);
+    this.obj['_method'] = 'put';
+    console.log(this.obj);
     this.http.url = env.baseUrl + '7/' + this.serial_no + '?table=job_listing';
     this.http.updateObj(this.obj).subscribe((data) => {
       console.log(data);

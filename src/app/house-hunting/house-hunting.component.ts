@@ -49,6 +49,8 @@ export class HouseHuntingComponent implements OnInit {
 
   saveDraft(){
     this.obj['attachments'] = JSON.stringify(this.obj['attachments']);
+    this.obj['_method'] = 'put';
+    console.log(this.obj);
     this.http.url = env.baseUrl + '7/' + this.serial_no + '?table=house_hunting';
     this.http.updateObj(this.obj).subscribe((data) => {
       console.log(data);
