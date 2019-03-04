@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  baseUrl : 'https://honeyweb.org/api/',
+  baseUrl : 'http://localhost:8003/api/',
 };

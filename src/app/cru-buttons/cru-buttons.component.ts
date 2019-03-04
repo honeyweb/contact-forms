@@ -13,20 +13,28 @@ export class CruButtonsComponent implements OnInit {
 	form_name:string;
 	serial_no:number;
 	pin = "";
+  err = "";
 
   constructor(private http:CRUDService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
   	this.route.queryParams.subscribe(params => {
         this.form_name= params['form_name'];
+        this.serial_no= params['serial_no'];
+        this.pin= params['pin'];
+        this.err= params['err'];
     });
   }
 
   newForm(){
     this.http.url = env.baseUrl + '5?table=' + this.form_name;
-    this.http.addObj("k=v&k2=v2").subscribe((res) => {
-      this.serial_no = res['id'];
-      this.nav();
+    this.http.addObj({}).subscribe((res) => {
+      if(res['status'] == 'success'){
+        this.serial_no = res['data']['id'];
+        this.nav();
+      }else{
+        this.err = res['error'];
+      }
     });
   }
 
